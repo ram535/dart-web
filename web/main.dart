@@ -13,6 +13,9 @@ Future main() async {
       request.response.write('<h1>Hello, world!</h1>');
     } else if (request.uri.path == "/contact") {
       request.response.write('To get in touch, please send a email to <a href=\"mailto:support@foo.com\">suppurt@foo.com</a>');
+    } else {
+      request.response.statusCode = HttpStatus.notFound;
+      request.response.write('<h1>Could not find page</h1>');
     }
     request.response.close();
   }
