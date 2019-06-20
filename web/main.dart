@@ -17,5 +17,7 @@ void main() {
     return Response.ok('hello $user');
   });
 
+  router.all('/<.*>', (Request request) => Response.notFound('foo'));
+
   io.serve(router.handler, 'localhost', 8080);
 }
