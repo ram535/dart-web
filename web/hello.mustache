@@ -1,2 +1,15 @@
-<h1>Hello, {{name}} <script>alert('hi')</script></h1>
+<h1>Hello, {{name}}</h1>
+<p>
+Slice: {{slice}}
+</p>
+{{#slice}}
+{{.}}
+{{/slice}}
+
+{{#map}}
+{{.}}
+{{/map}}
+
+{{map.key1}}
+
 
