@@ -5,8 +5,8 @@ class View {
   Template template;
   Template footerPartial =
       Template(File('views/layouts/footer.mustache').readAsStringSync());
-  Template menuPartial =
-      Template(File('views/layouts/menu.mustache').readAsStringSync());
+  Template headerPartial =
+      Template(File('views/layouts/header.mustache').readAsStringSync());
 
   View(List<String> filePaths) {
     newView(filePaths);
@@ -22,12 +22,13 @@ class View {
   }
 
   Template getPartial(String name) {
-    if (name == 'menu') {
-      return menuPartial;
+    switch (name) {
+      case 'header':
+        return headerPartial;
+      case 'footer':
+        return footerPartial;
+      default:
+        return null;
     }
-    if (name == 'footer') {
-      return footerPartial;
-    }
-    return null;
   }
 }
