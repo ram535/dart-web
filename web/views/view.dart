@@ -24,6 +24,8 @@ class View {
     switch (name) {
       case 'header':
         return getTemplate(name);
+      case 'navbar':
+        return getTemplate(name);
       case 'footer':
         return getTemplate(name);
       default:
