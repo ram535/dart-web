@@ -16,14 +16,12 @@ void main() async {
   await io.serve(router.handler, 'localhost', 8080);
 }
 
-Future<Response> home(Request request) async {
-  return Response.ok(homeView.template.renderString(null),
-      headers: {'content-type': 'text/html'});
+Future<Response> home(Request _) async {
+  return homeView.render();
 }
 
-Future<Response> conact(Request request) async {
-  return Response.ok(contactView.template.renderString(null),
-      headers: {'content-type': 'text/html'});
+Future<Response> conact(Request _) async {
+  return contactView.render();
 }
 
 Future<Response> notFound(Request request) async {

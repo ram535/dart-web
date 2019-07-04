@@ -1,40 +1,45 @@
 import 'package:mustache/mustache.dart' show Template;
+import 'package:shelf/shelf.dart' show Response;
 import 'dart:io' show File;
 
 class View {
-  var template;
+  var _template;
 
-  final layoutDir = 'views/layouts/';
-  final templateExt = '.mustache';
+  final _layoutDir = 'views/layouts/';
+  final _templateExt = '.mustache';
 
   View(List<String> filePaths) {
-    newView(filePaths);
+    _newView(filePaths);
   }
 
-  void newView(List<String> filePaths) {
+  void _newView(List<String> filePaths) {
     String content = "";
     // concatenate the content of each file into the content variable
     for (var filePath in filePaths) {
       content += (File(filePath).readAsStringSync());
     }
-    template = Template(content, partialResolver: getPartial);
+    _template = Template(content, partialResolver: _getPartial);
   }
 
-  Template getPartial(String name) {
+  Template _getPartial(String name) {
     switch (name) {
       case 'header':
-        return getTemplate(name);
+        return _getTemplate(name);
       case 'navbar':
-        return getTemplate(name);
+        return _getTemplate(name);
       case 'footer':
-        return getTemplate(name);
+        return _getTemplate(name);
       default:
         return null;
     }
   }
 
-  Template getTemplate(String name) {
-    var content = File(layoutDir + name + templateExt).readAsStringSync();
-    return Template(content);
+  Template _getTemplate(String name) {
+    return Template(File(_layoutDir + name + _templateExt).readAsStringSync());
+  }
+
+  Future<Response> render() async {
+    return Response.ok(_template.renderString(null),
+        headers: {'content-type': 'text/html'});
   }
 }
