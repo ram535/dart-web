@@ -2,11 +2,10 @@ import 'package:mustache/mustache.dart' show Template;
 import 'dart:io' show File;
 
 class View {
-  Template template;
-  Template footerPartial =
-      Template(File('views/layouts/footer.mustache').readAsStringSync());
-  Template headerPartial =
-      Template(File('views/layouts/header.mustache').readAsStringSync());
+  var template;
+
+  final layoutDir = 'views/layouts/';
+  final templateExt = '.mustache';
 
   View(List<String> filePaths) {
     newView(filePaths);
@@ -24,11 +23,16 @@ class View {
   Template getPartial(String name) {
     switch (name) {
       case 'header':
-        return headerPartial;
+        return getTemplate(name);
       case 'footer':
-        return footerPartial;
+        return getTemplate(name);
       default:
         return null;
     }
+  }
+
+  Template getTemplate(String name) {
+    var content = File(layoutDir + name + templateExt).readAsStringSync();
+    return Template(content);
   }
 }
