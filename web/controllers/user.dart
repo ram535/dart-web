@@ -1,5 +1,6 @@
 import '../views/view.dart';
 import 'package:shelf/shelf.dart' show Response, Request;
+import 'dart:convert';
 
 class User {
   var _newView;
@@ -12,7 +13,11 @@ class User {
     return _newView.render();
   }
 
-  Future<Response> create(Request _) async {
-    return Response.ok('Temporary response');
+  Future<Response> create(Request request) async {
+    var postData = await request.readAsString();
+    var queryParams = Uri(query: postData).queryParameters;
+    print(queryParams["email"]);
+    print(queryParams["password"]);
+    return Response.ok('$queryParams');
   }
 }
