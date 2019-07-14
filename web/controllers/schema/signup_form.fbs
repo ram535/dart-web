@@ -1,0 +1,9 @@
+namespace Schema;
+
+table SignupForm {
+  email:string;
+  password:string;
+  id:short;
+}
+
+root_type SignupForm;
