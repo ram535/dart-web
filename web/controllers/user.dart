@@ -1,6 +1,6 @@
 import '../views/view.dart';
 import 'package:shelf/shelf.dart' show Response, Request;
-import 'helpers.dart';
+import 'helpers.dart' show pastForm;
 
 class User {
   var _newView;
