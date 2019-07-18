@@ -1,5 +1,5 @@
 import 'package:mustache/mustache.dart' show Template;
-import 'package:shelf/shelf.dart' show Response, Request;
+import 'package:shelf/shelf.dart' show Response;
 import 'dart:io' show File;
 
 class View {
@@ -7,12 +7,16 @@ class View {
 
   final _layoutDir = 'views/layouts/';
   final _templateExt = '.mustache';
+  final _templateDir = 'views/';
 
   View(List<String> filePaths) {
     _newView(filePaths);
   }
 
   void _newView(List<String> filePaths) {
+    _addTemplatePath(filePaths);
+    _addTemplateExt(filePaths);
+
     String content = "";
     // concatenate the content of each file into the content variable
     for (var filePath in filePaths) {
@@ -41,5 +45,17 @@ class View {
   Future<Response> render() async {
     return Response.ok(_template.renderString(null),
         headers: {'content-type': 'text/html'});
+  }
+
+  void _addTemplatePath(List<String> filePaths) {
+    for (var i = 0; i < filePaths.length; i++) {
+      filePaths[i] = _templateDir + filePaths[i];
+    }
+  }
+
+  void _addTemplateExt(List<String> filePaths) {
+    for (var i = 0; i < filePaths.length; i++) {
+      filePaths[i] = filePaths[i] + _templateExt;
+    }
   }
 }

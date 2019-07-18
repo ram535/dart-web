@@ -6,7 +6,7 @@ class User {
   var _newView;
 
   User() {
-    _newView = View(['views/users/new.mustache']);
+    _newView = View(['users/new']);
   }
 
   Future<Response> newV(Request _) async {
